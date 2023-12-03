@@ -1,1 +1,245 @@
+#include "header.h"
 
+ char ter[10][20]={
+        "--------------------",
+        "|                  |",
+        "|                  |",
+        "|                  |",
+        "|                  |",
+        "|                  |",
+        "|                  |",
+        "|                  |",
+        "|                  |",
+        "--------------------",
+};
+
+void affs(){
+    char snoopy='S';
+    ter[5][10]=snoopy;
+    gotoligcol(5,10);
+    printf ("%c",ter[5][10]);
+
+}
+void affm(){
+    system("cls");
+    Color(3,15);
+    for (int i=0;i<10;i++){
+        for (int j=0;j<20;j++){
+            printf ("%c",ter[i][j]);
+        }
+        printf ("\n");
+    }
+}
+
+void affo (){
+    char oiseaux='X';
+    ter[1][1]='X';
+    ter[1][18]=oiseaux;
+    ter[8][1]=oiseaux;
+    ter[8][18]=oiseaux;
+    gotoligcol(1,1);
+    printf ("%c",ter[1][1]);
+    gotoligcol(1,18);
+    printf ("%c",ter[1][18]);
+    gotoligcol(8,18);
+    printf ("%c",ter[8][18]);
+    gotoligcol(8,1);
+    printf ("%c",ter[8][1]);
+
+}
+
+void gotoligcol( int lig, int col ){
+    COORD mycoord;
+    mycoord.X = col;
+    mycoord.Y = lig;
+    SetConsoleCursorPosition( GetStdHandle( STD_OUTPUT_HANDLE ), mycoord );
+}
+
+void Color(int couleurDuTexte,int couleurDeFond)
+{
+HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
+SetConsoleTextAttribute(H,couleurDeFond*16+couleurDuTexte);
+}
+
+void north(){
+    char snoopy='S';
+    char vide=' ';
+    int i=findx(ter);
+    int j=findy(ter);
+    if (ter[i-1][j]==' '){
+        ter[i][j]=vide;
+        ter[i-1][j]=snoopy;
+        gotoligcol(i,j);
+        printf("%c",ter[i][j]);
+        gotoligcol(i-1,j);
+        printf ("%c",ter[i-1][j]);
+    }
+}
+void south(){
+    char snoopy='S';
+    char vide=' ';
+    int i=findx(ter);
+    int j=findy(ter);
+    if (ter[i+1][j]==' '){
+        ter[i][j]=vide;
+        ter[i+1][j]=snoopy;
+        gotoligcol(i,j);
+        printf("%c",ter[i][j]);
+        gotoligcol(i+1,j);
+        printf ("%c",ter[i+1][j]);
+    }
+}
+void west(){
+    char snoopy='S';
+    char vide=' ';
+    int i=findx(ter);
+    int j=findy(ter);
+    if (ter[i][j-1]==' '){
+        ter[i][j]=vide;
+        ter[i][j-1]=snoopy;
+        gotoligcol(i,j);
+        printf("%c",ter[i][j]);
+        gotoligcol(i,j-1);
+        printf ("%c",ter[i][j-1]);
+    }
+}
+void east(){
+    char snoopy='S';
+    char vide=' ';
+    int i=findx(ter);
+    int j=findy(ter);
+    if (ter[i][j+1]==' '){
+        ter[i][j]=vide;
+        ter[i][j+1]=snoopy;
+        gotoligcol(i,j);
+        printf("%c",ter[i][j]);
+        gotoligcol(i,j+1);
+        printf ("%c",ter[i][j+1]);
+    }
+}
+
+int findx(char ter[10][20]){
+    c_coord c;
+    for (int i=0;i<10;i++){
+        for (int j=0;j<20;j++){
+            if (ter[i][j]=='S'){
+                c.sx=i;
+            }
+        }
+    }
+    return c.sx;
+}
+
+int findy(char ter[10][20]){
+    c_coord c;
+    for (int i=0;i<10;i++){
+        for (int j=0;j<20;j++){
+            if (ter[i][j]=='S'){
+                c.sy=j;
+            }
+        }
+    }
+    printf ("%c",c.sy);
+    return c.sy;
+}
+
+void recolte(){
+    int i=findx(ter);
+    int j=findy(ter);
+    if (i==1){
+        if (j==2){
+            ter[1][1]=' ';
+            gotoligcol(1,1);
+            printf ("%c",ter[1][1]);
+        }
+        if (j==17){
+            ter[1][18]=' ';
+            gotoligcol(1,18);
+            printf ("%c",ter[1][18]);
+        }
+    }
+    if (i==2){
+        if (j==1){
+            ter[1][1]=' ';
+            gotoligcol(1,1);
+            printf ("%c",ter[1][1]);
+        }
+        if (j==18){
+            ter[1][18]=' ';
+            gotoligcol(1,18);
+            printf ("%c",ter[1][18]);
+        }
+    }
+    if (i==8){
+        if (j==2){
+            ter[8][1]=' ';
+            gotoligcol(8,1);
+            printf ("%c",ter[8][1]);
+        }
+        if (j==17){
+            ter[8][18]=' ';
+            gotoligcol(8,18);
+            printf ("%c",ter[8][18]);
+        }
+    }
+    if (i==7){
+        if (j==1){
+            ter[8][1]=' ';
+            gotoligcol(8,1);
+            printf ("%c",ter[8][1]);
+        }
+        if (j==18){
+            ter[8][18]=' ';
+            gotoligcol(8,18);
+            printf ("%c",ter[8][18]);
+        }
+    }
+}
+
+void delay (int ms){
+    char touche;
+    clock_t timeDelay = ms + clock();
+    while (timeDelay>clock()){
+        if (kbhit()) {
+            touche = getch();
+            if (touche == 'z') {
+                north();
+            }
+            if (touche == 'q') {
+                west();
+            }
+            if (touche == 'd') {
+                east();
+            }
+            if (touche == 's') {
+                south();
+            }
+            if (touche == 'r') {
+                recolte();
+            }
+        }
+    }
+}
+
+char tps[3][21]={
+        "*********************",
+        "                     ",
+        "*********************",
+};
+void afft (){
+    t_temps t;
+    printf("\n\n\n");
+    for(int i=0;i<3;i++){
+        for (int j=0;j<20;j++){
+            printf("%c",tps[i][j]);
+        }
+        printf("\n");
+    }
+}
+void tempsc(){
+    t_temps t;
+    tps[1][9]=t.t1;
+    gotoligcol(12,9);
+    printf("%d",t.t1);
+    t.t1=t.t1-1;
+}
