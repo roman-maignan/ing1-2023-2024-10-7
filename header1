@@ -10,11 +10,19 @@
 #include <string.h>
 #include <conio.h>
 #include <time.h>
+#include <unistd.h>
+#include <stdbool.h>
+
 void gotoligcol( int lig, int col );
 void Color(int couleurDuTexte,int couleurDeFond);
 void affm();
 void affs();
 void affo();
+void affb();
+void affmur(int a,int b);
+void affblocs();
+void affpouss();
+void affbp(int a,int b);
 int findx(char ter[10][20]);
 int findy(char ter[10][20]);
 void north();
@@ -22,7 +30,7 @@ void west();
 void east();
 void south();
 typedef struct coord{
-    int sx,sy;
+    int sx,sy,sxb,syb;
 }c_coord;
 void recolte();
 void delay (int ms);
@@ -31,3 +39,28 @@ typedef struct temps{
 }t_temps;
 void afft();
 void tempsc();
+int findxb(char ter[10][20]);
+int findyb(char ter[10][20]);
+void moveb ();
+void niv1();
+void niv2();
+void niv3();
+void niv4();
+typedef struct{
+    int matrice[10][20];
+    int niveau;
+    int chronometre;
+}Plateau;
+void sauvegarderPartie(Plateau plateau);
+void chargerPartie(Plateau *plateau);
+void afficherMenu();
+void jouerNiveau(Plateau *plateau);
+void affreglesdujeu();
+void motdepasse();
+void scores();
+typedef struct passe{
+    char m1[4];
+    char m2[4];
+    char m3[4];
+    char m4[4];
+}p_passe;
