@@ -1,0 +1,3 @@
+C:/Users/roman/CLionProjects/ing1-2023-2024-10-7/cmake-build-debug/CMakeFiles/ing1_2023_2024_10_7.dir
+C:/Users/roman/CLionProjects/ing1-2023-2024-10-7/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/roman/CLionProjects/ing1-2023-2024-10-7/cmake-build-debug/CMakeFiles/rebuild_cache.dir
