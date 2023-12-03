@@ -1,18 +1,78 @@
 #include "header.h"
 
 int main() {
-    t_temps t;
-    affm();
-    affs();
-    affo();
-    afft();
-    char touche;
-    t.t1=60;
-    while (touche!='p') {
-        gotoligcol(12,9);
-        printf("%d",t.t1);
-        t.t1=t.t1-1;
-        delay(1000);
-    }
+    Plateau plateau;
+    char choix;
+
+    do {
+        system("cls");
+
+        afficherMenu();
+        scanf(" %c", &choix);
+
+        switch (choix) {
+            case '0':
+                affreglesdujeu();
+                break;
+            case '1':
+                jouerNiveau(&plateau);
+                system("cls");
+                niv1();
+                system("cls");
+                niv2();
+                system("cls");
+                niv3();
+                system("cls");
+                niv4();
+                break;
+            case '2':
+                chargerPartie(&plateau);
+                jouerNiveau(&plateau);
+                break;
+            case '3':
+                sauvegarderPartie(plateau);
+                break;
+            case '4':
+                //motdepasse();
+                //break;
+                printf("saisir mot de passe");
+                char mot[4];
+                scanf("%c",&mot);
+                if(mot[0]=='n'){
+                    if(mot[1]=='i'){
+                        if(mot[2]=='v'){
+                            if(mot[3]=='1'){
+                                niv1();
+                            }
+                            if(mot[3]=='2'){
+                                niv2();
+                            }
+                            if(mot[3]=='3'){
+                                niv3();
+                            }
+                            if(mot[3]=='4'){
+                                niv4();
+                            }
+                        }
+                    }
+                }
+                break;
+            case '5':
+                scores();
+                break;
+            case 'Q':
+            case 'q':
+                printf("Au revoir\n");
+                break;
+            default:
+                printf("Choix invalide, veuillez réessayer.\n");
+        }
+        if (choix != '0') {
+            printf("\nAppuyez sur Enter pour continuer...");
+            getchar();
+        }
+
+    } while (choix != 'Q' && choix != 'q');
+
     return 0;
 }
