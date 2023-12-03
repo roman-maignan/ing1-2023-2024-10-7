@@ -21,7 +21,7 @@ void affs(){
 
 }
 void affm(){
-    system("cls");
+    //system("cls");
     Color(3,15);
     for (int i=0;i<10;i++){
         for (int j=0;j<20;j++){
@@ -45,7 +45,6 @@ void affo (){
     printf ("%c",ter[8][18]);
     gotoligcol(8,1);
     printf ("%c",ter[8][1]);
-
 }
 
 void gotoligcol( int lig, int col ){
@@ -139,7 +138,6 @@ int findy(char ter[10][20]){
             }
         }
     }
-    printf ("%c",c.sy);
     return c.sy;
 }
 
@@ -198,20 +196,63 @@ void recolte(){
 
 void delay (int ms){
     char touche;
+    int i= findx(ter);
+    int j= findy(ter);
+    char vide=' ';
     clock_t timeDelay = ms + clock();
     while (timeDelay>clock()){
         if (kbhit()) {
             touche = getch();
             if (touche == 'z') {
+                if( ter[i-1][j]=='P'){
+                    if(ter[i-2][j]==vide){
+                        ter[i-2][j]='P';
+                        ter[i-1][j]=vide;
+                        gotoligcol(i-2,j);
+                        printf ("%c",ter[i-2][j]);
+                        gotoligcol(i-1,j);
+                        printf("%c",ter[i-1][j]);
+                    }
+                }
                 north();
             }
             if (touche == 'q') {
+                if( ter[i][j-1]=='P'){
+                    if(ter[i][j-2]==vide){
+                        ter[i][j-2]='P';
+                        ter[i][j-1]=vide;
+                        gotoligcol(i,j-2);
+                        printf ("%c",ter[i][j-2]);
+                        gotoligcol(i,j-1);
+                        printf("%c",ter[i][j-1]);
+                    }
+                }
                 west();
             }
             if (touche == 'd') {
+                if( ter[i][j+1]=='P'){
+                    if(ter[i][j+2]==vide){
+                        ter[i][j+2]='P';
+                        ter[i][j+1]=vide;
+                        gotoligcol(i,j+2);
+                        printf ("%c",ter[i][j+2]);
+                        gotoligcol(i,j+1);
+                        printf("%c",ter[i][j+1]);
+                    }
+                }
                 east();
             }
             if (touche == 's') {
+                if( ter[i+1][j]=='P'){
+                    if(ter[i+2][j]==vide){
+                        ter[i+2][j]='P';
+                        ter[i+1][j]=vide;
+                        gotoligcol(i+2,j);
+                        printf ("%c",ter[i+2][j]);
+                        gotoligcol(i+1,j);
+                        printf("%c",ter[i+1][j]);
+                    }
+                }
                 south();
             }
             if (touche == 'r') {
@@ -223,7 +264,7 @@ void delay (int ms){
 
 char tps[3][21]={
         "*********************",
-        "                     ",
+        "*                   *",
         "*********************",
 };
 void afft (){
@@ -236,10 +277,257 @@ void afft (){
         printf("\n");
     }
 }
-void tempsc(){
+
+void affb(){
+    char balle='B';
+    ter[2][10]=balle;
+    gotoligcol(2,10);
+    printf ("%c",ter[2][10]);
+}
+
+int findxb(char ter[10][20]){
+    c_coord c;
+    for (int i=0;i<10;i++){
+        for (int j=0;j<20;j++){
+            if (ter[i][j]=='B'){
+                c.sxb=i;
+            }
+        }
+    }
+    return c.sxb;
+}
+
+int findyb(char ter[10][20]){
+    c_coord c;
+    for (int i=0;i<10;i++){
+        for (int j=0;j<20;j++){
+            if (ter[i][j]=='B'){
+                c.syb=j;
+            }
+        }
+    }
+    return c.syb;
+}
+
+void moveb(){
+    char balle = 'B';
+    char vide =' ';
+    int i=findxb(ter);
+    int j=findyb(ter);
+    if (ter[i+1][j+1]==' '){
+        ter[i+1][j+1]=balle;
+        ter[i][j]=vide;
+        gotoligcol(i,j);
+        printf ("%c",vide);
+        gotoligcol(i+1,j+1);
+        printf ("%c",balle);
+    }
+    if (ter[i+1][j+1]=='-'){
+        ter[i-1][j+1]=balle;
+        ter[i][j]=vide;
+        gotoligcol(i,j);
+        printf ("%c",vide);
+        gotoligcol(i-1,j+1);
+        printf ("%c",balle);
+    }
+    if (ter[i-1][j+1]=='|'){
+        ter[i-1][j-1]=balle;
+        ter[i][j]=vide;
+        gotoligcol(i,j);
+        printf ("%c",vide);
+        gotoligcol(i-1,j-1);
+        printf ("%c",balle);
+    }
+}
+
+
+void niv1 (){
     t_temps t;
-    tps[1][9]=t.t1;
-    gotoligcol(12,9);
-    printf("%d",t.t1);
-    t.t1=t.t1-1;
+    affm();
+    affs();
+    affo();
+    afft();
+    affb();
+    t.t1=60;
+    while (t.t1>=0) {
+        gotoligcol(12,9);
+        printf("%d",t.t1);
+        t.t1=t.t1-1;
+        delay(1000);
+        if (t.t1<10){
+            gotoligcol(12,10);
+            printf (" ");
+        }
+       // moveb ();
+    }
+}
+void niv2(){
+    t_temps t;
+    affm();
+    affs();
+    affo();
+    afft();
+    affb();
+    affblocs();
+    t.t2=60;
+    while (t.t2>=0) {
+        gotoligcol(12,9);
+        printf("%d",t.t2);
+        t.t2=t.t2-1;
+        delay(1000);
+        if (t.t2<10){
+            gotoligcol(12,10);
+            printf (" ");
+        }
+        //moveb ();
+    }
+}
+void niv3(){
+    t_temps t;
+    affm();
+    affs();
+    affo();
+    afft();
+    affb();
+    affblocs();
+    affpouss();
+    t.t3=60;
+    while (t.t3>=0) {
+        gotoligcol(12,9);
+        printf("%d",t.t3);
+        t.t3=t.t3-1;
+        delay(1000);
+        if (t.t3<10){
+            gotoligcol(12,10);
+            printf (" ");
+        }
+        //moveb ();
+    }
+}
+void niv4(){
+    t_temps t;
+    affm();
+    affs();
+    affo();
+    afft();
+    affb();
+    t.t4=60;
+    while (t.t4>=0) {
+        gotoligcol(12,9);
+        printf("%d",t.t4);
+        t.t4=t.t4-1;
+        delay(1000);
+        if (t.t4<10){
+            gotoligcol(12,10);
+            printf (" ");
+        }
+        //moveb ();
+    }
+}
+
+void affbp(int a,int b){
+    char bloc='P';
+    ter[a][b]=bloc;
+    gotoligcol(a,b);
+    printf("%c",ter[a][b]);
+}
+
+void afficherMenu() {
+    // Implémentez la logique pour afficher le menu du jeu
+    printf("0. regles du jeu\n");
+    printf("1. Jouer un nouveau niveau\n");
+    printf("2. Charger une partie\n");
+    printf("3. Sauvegarder la partie en cours\n");
+    printf("4. Mot de passe des differents niveaux\n");
+    printf("5. Scores\n");
+    printf("Q. Quitter le jeu\n");
+}
+void chargerPartie(Plateau *plateau) {
+    FILE *fichier = fopen("sauvegarde.txt", "r");
+    if (fichier == NULL) {
+        fprintf(stderr, "Erreur lors de l'ouverture du fichier de sauvegarde.\n");
+    }
+}
+
+void jouerNiveau(Plateau *plateau) {
+    // Réinitialiser le chronomètre
+    plateau->chronometre = 0;
+}
+
+void sauvegarderPartie(Plateau plateau) {
+    FILE *fichier = fopen("sauvegarde.txt", "w");
+    if (fichier == NULL) {
+        fprintf(stderr, "Erreur lors de l'ouverture du fichier de sauvegarde.\n");
+        return;
+    }
+}
+void affreglesdujeu(){
+    printf("Les regles du jeu sont les suivantes:\n"
+           "Le but de Snoopy est de recuperer 4 oiseaux aux 4 coins du niveau en un temps imparti.\n"
+           "Le probleme est que ces 4 oiseaux ne sont pas si faciles a recuperer.\n"
+           "Une balle rebondit constamment dans le niveau afin de freiner Snoopy dans sa quete.\n"
+           "Mais ce n'est pas tout, d'autres pieges sont presents comme des teleporteurs que la balle peut emprunter\n"
+           "ou des cases piegees, voir meme des blocs a pousser ou a casser.\n"
+           "Vous recuperez les 4 oiseaux et vous avez gagne. Cependant, si le temps est ecoule ou que la balle vous\n"
+           "touche, le niveau est perdu.\n\nAppuyez sur 'm' pour retourner au menu.\n");
+
+    char choix;
+    scanf(" %c", &choix);
+
+    // On peut ajouter une boucle ici pour attendre la pression de 'm'
+    while (choix != 'm' && choix != 'M') {
+        printf("Appuyez sur 'm' pour retourner au menu.\n");
+        scanf(" %c", &choix);
+    }
+}
+
+void motdepasse(){
+    p_passe p;
+    printf("saisir le mot de passe");
+    char mot[4];
+    gets(mot);
+    if(mot=='niv1'){
+        niv1();
+    }
+}
+void scores(){
+
+}
+void affmur(int a,int b){
+    char mur='=';
+    ter[a][b]=mur;
+    gotoligcol(a,b);
+    printf("%c",ter[a][b]);
+}
+
+void affblocs(){
+    affmur(6,16);
+    affmur(4,10);
+    affmur(6,10);
+    affmur(3, 17);
+    affmur(7,13);
+    affmur(2,15);
+    affmur(8,10);
+    affmur(5,8);
+    affmur(7,15);
+    affmur(2,14);
+    affmur(2,5);
+    affmur(8,7);
+    affmur(5,8);
+    affmur(7,9);
+    affmur(2,4);
+    affmur(6,3);
+    affmur(4,5);
+    affmur(7,7);
+    affmur(3,15);
+    affmur(8,13);
+}
+void affpouss(){
+    affbp(4,10);
+    affbp(6,10);
+    affbp(5,13);
+    affbp(6,14);
+    affbp(8,3);
+    affbp(1,3);
+    affbp(1,17);
 }
