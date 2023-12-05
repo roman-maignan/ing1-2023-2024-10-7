@@ -1,10 +1,12 @@
 #include <stdio.h>
 
+
 #ifndef PROJET_HEADER_H
 #define PROJET_HEADER_H
 
+
+
 #endif
-#include <windows.h>
 #include <stdlib.h>
 #include <windows.h>
 #include <string.h>
@@ -12,6 +14,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <windows.h>
 
 void gotoligcol( int lig, int col );
 void Color(int couleurDuTexte,int couleurDeFond);
