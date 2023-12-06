@@ -1,5 +1,4 @@
 #include "header.h"
-
 int main() {
     Plateau plateau;
     char choix;
