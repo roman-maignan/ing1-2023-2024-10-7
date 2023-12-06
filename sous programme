@@ -1,10 +1,14 @@
-#include "header.h"
-                                                                                                                                        
- char ter[10][20]={
+//
+// Created by Côme on 06/12/2023.
+//
+
+#include "sous programme.h"
+
+char ter[10][20]={
         "--------------------",
         "|                  |",
         "|                  |",
-        "|                  |",                                                                                                         
+        "|                  |",
         "|                  |",
         "|                  |",
         "|                  |",
@@ -56,8 +60,8 @@ void gotoligcol( int lig, int col ){
 
 void Color(int couleurDuTexte,int couleurDeFond)
 {
-HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
-SetConsoleTextAttribute(H,couleurDeFond*16+couleurDuTexte);
+    HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(H,couleurDeFond*16+couleurDuTexte);
 }
 
 void north(){
@@ -69,28 +73,28 @@ void north(){
         ter[i][j]=vide;
         ter[i-1][j]=snoopy;
         gotoligcol(i,j);
-        printf("%c",ter[i][j]);                   
-        gotoligcol(i-1,j);                    
+        printf("%c",ter[i][j]);
+        gotoligcol(i-1,j);
         printf ("%c",ter[i-1][j]);
     }
 }
-void south(){                   
+void south(){
     char snoopy='S';
     char vide=' ';
     int i=findx(ter);
     int j=findy(ter);
     if (ter[i+1][j]==' '){
-        ter[i][j]=vide;               
+        ter[i][j]=vide;
         ter[i+1][j]=snoopy;
-        gotoligcol(i,j);              
+        gotoligcol(i,j);
         printf("%c",ter[i][j]);
-        gotoligcol(i+1,j);               
+        gotoligcol(i+1,j);
         printf ("%c",ter[i+1][j]);
     }
 }
-void west(){                              
+void west(){
     char snoopy='S';
-    char vide=' ';                                 
+    char vide=' ';
     int i=findx(ter);
     int j=findy(ter);
     if (ter[i][j-1]==' '){
@@ -358,7 +362,7 @@ void niv1 (){
             gotoligcol(12,10);
             printf (" ");
         }
-       // moveb ();
+        // moveb ();
     }
 }
 void niv2(){
@@ -434,6 +438,13 @@ void affbp(int a,int b){
 
 void afficherMenu() {
     // Implémentez la logique pour afficher le menu du jeu
+    printf(" ____     ___  __ __   ____  ____      __  __ __    ___      ___      ___       _____ ____    ___    ___   ____   __ __\n");
+    printf("|    \\   /  _]|  |  | /    ||    \\    /  ]|  |  |  /  _]    |   \\    /  _]     / ___/|    \\  /   \\  /   \\ |    \\ |  |  |\n");
+    printf("|  D  ) /  [_ |  |  ||  o  ||  _  |  /  / |  |  | /  [_     |    \\  /  [_     (   \\_ |  _  ||     ||     ||  o  )|  |  |\n");
+    printf("|    / |    _]|  |  ||     ||  |  | /  /  |  _  ||    _]    |  D  ||    _]     \\__  ||  |  ||  O  ||  O  ||   _/ |  ~  |\n");
+    printf("|    \\ |   [_ |  :  ||  _  ||  |  |/   \\_ |  |  ||   [_     |     ||   [_      /  \\ ||  |  ||     ||     ||  |   |___, |\n");
+    printf("|  .  \\|     | \\   / |  |  ||  |  |\\     ||  |  ||     |    |     ||     |     \\    ||  |  ||     ||     ||  |   |     |\n");
+    printf("|__|\\_||_____|  \\_/  |__|__||__|__| \\____||__|__||_____|    |_____||_____|      \\___||__|__| \\___/  \\___/ |__|   |____/\n");
     printf("0. regles du jeu\n");
     printf("1. Jouer un nouveau niveau\n");
     printf("2. Charger une partie\n");
@@ -441,6 +452,28 @@ void afficherMenu() {
     printf("4. Mot de passe des differents niveaux\n");
     printf("5. Scores\n");
     printf("Q. Quitter le jeu\n");
+    printf("                   %%%#+===+*        \n");
+    printf("                  #*-.     :=*%      \n");
+    printf("         %%#*++++=:.         .=#     \n");
+    printf("       %#=.      ..         ...+#    \n");
+    printf("      %*..       -=.     ..-*#*-#%% \n");
+    printf("     %#.         :-:    .-+#%%%-*# \n");
+    printf("   #+*+    ..  ..   ..  =+##%%%+*# \n");
+    printf("  *=-**.            --..-*%%%%%:#@ \n");
+    printf("   %#%%+...       ..-: .=+#%%#:#%  \n");
+    printf("        %%#=:....--. ..=#=++:+%%   \n");
+    printf("                %%+. =*              \n");
+    printf("                  %##%%              \n");
+    printf("                  +-:=%              \n");
+    printf("                %=...-*%             \n");
+    printf("               %=.  ..=*             \n");
+    printf("               +-  .-:.*%            \n");
+    printf("               +-  :-..*%%           \n");
+    printf("               %+: :=-:+#%%%         \n");
+    printf("                %#*===+#%*+=+#%      \n");
+    printf("           #*==***+==:-*%%%%         \n");
+    printf("         %*====-... .. ..:+#         \n");
+
 }
 void chargerPartie(Plateau *plateau) {
     FILE *fichier = fopen("sauvegarde.txt", "r");
@@ -455,6 +488,38 @@ void jouerNiveau(Plateau *plateau) {
 }
 
 void sauvegarderPartie(Plateau plateau) {
+    printf("    __  __ __   ____  ____    ____    ___  ___ ___    ___  ____   ______           \n");
+    printf("   /  ]|  |  | /    ||    \\  /    |  /  _]|   |   |  /  _]|    \\ |      |          \n");
+    printf("  /  / |  |  ||  o  ||  D  )|   __| /  [_ | _   _ | /  [_ |  _  ||      |          \n");
+    printf(" /  /  |  _  ||     ||    / |  |  ||    _]|  \\_/  ||    _]|  |  ||_|  |_|          \n");
+    printf("/   \\_ |  |  ||  _  ||    \\ |  |_ ||   [_ |   |   ||   [_ |  |  |  |  | __  __  __ \n");
+    printf("\\     ||  |  ||  |  ||  .  \\|     ||     ||   |   ||     ||  |  |  |  ||  ||  ||  |\n");
+    printf(" \\____||__|__||__|__||__|\\_||___,_||_____||___|___||_____||__|__|  |__||__||__||__|\n");
+    Sleep(3000);
+    printf("   ___  ____   ____     ___  __ __  ____       __  __  __                                            \n");
+    printf("  /  _]|    \\ |    \\   /  _]|  |  ||    \\     |  ||  ||  |                                           \n");
+    printf(" /  [_ |  D  )|  D  ) /  [_ |  |  ||  D  )    |  ||  ||  |                                           \n");
+    printf("|    _]|    / |    / |    _]|  |  ||    /     |__||__||__|                                           \n");
+    printf("|   [_ |    \\ |    \\ |   [_ |  :  ||    \\      __  __  __                                            \n");
+    printf("|     ||  .  \\|  .  \\|     ||     ||  .  \\    |  ||  ||  |                                           \n");
+    printf("|_____||__|\\_||__|\\_||_____| \\__,_||__|\\_|    |__||__||__|                                           \n");
+    printf("                                                                                                    \n");
+    printf(" ____     ___    ___  _____ _____  ____  __ __    ___  ____                                          \n");
+    printf("|    \\   /  _]  /  _]/ ___// ___/ /    ||  |  |  /  _]|    \\                                         \n");
+    printf("|  D  ) /  [_  /  [_(   \\_(   \\_ |  o  ||  |  | /  [_ |  D  )                                        \n");
+    printf("|    / |    _]|    _]\\__  |\\__  ||     ||  ~  ||    _]|    /                                         \n");
+    printf("|    \\ |   [_ |   [_ /  \\ |/  \\ ||  _  ||___, ||   [_ |    \\                                         \n");
+    printf("|  .  \\|     ||     |\\    |\\    ||  |  ||     ||     ||  .  \\                                        \n");
+    printf("|__|\\_||_____||_____| \\___| \\___||__|__||____/ |_____||__|\\_|                                        \n");
+    printf("                                                                                                    \n");
+    printf(" __ __  _     ______    ___  ____   ____    ___  __ __  ____     ___  ___ ___    ___  ____   ______ \n");
+    printf("|  |  || |   |      |  /  _]|    \\ |    |  /  _]|  |  ||    \\   /  _]|   |   |  /  _]|    \\ |      |\n");
+    printf("|  |  || |   |      | /  [_ |  D  ) |  | /  [_ |  |  ||  D  ) /  [_ | _   _ | /  [_ |  _  ||      |\n");
+    printf("|  |  || |___|_|  |_||    _]|    /  |  | |    _]|  |  ||    / |    _]|  \\_/  ||    _]|  |  ||_|  |_|\n");
+    printf("|  :  ||     | |  |  |   [_ |    \\  |  | |   [_ |  :  ||    \\ |   [_ |   |   ||   [_ |  |  |  |  |  \n");
+    printf("|     ||     | |  |  |     ||  .  \\ |  | |     ||     ||  .  \\|     ||   |   ||     ||  |  |  |  |  \n");
+    printf(" \\__,_||_____| |__|  |_____||__|\\_||____||_____| \\__,_||__|\\_||_____||___|___||_____||__|__|  |__|  \n");
+    Sleep(5000);
     FILE *fichier = fopen("sauvegarde.txt", "w");
     if (fichier == NULL) {
         fprintf(stderr, "Erreur lors de l'ouverture du fichier de sauvegarde.\n");
@@ -462,36 +527,51 @@ void sauvegarderPartie(Plateau plateau) {
     }
 }
 void affreglesdujeu(){
-    printf("Les regles du jeu sont les suivantes:\n"
+    printf("    __  __ __   ____  ____    ____    ___  ___ ___    ___  ____   ______           \n");
+    printf("   /  ]|  |  | /    ||    \\  /    |  /  _]|   |   |  /  _]|    \\ |      |          \n");
+    printf("  /  / |  |  ||  o  ||  D  )|   __| /  [_ | _   _ | /  [_ |  _  ||      |          \n");
+    printf(" /  /  |  _  ||     ||    / |  |  ||    _]|  \\_/  ||    _]|  |  ||_|  |_|          \n");
+    printf("/   \\_ |  |  ||  _  ||    \\ |  |_ ||   [_ |   |   ||   [_ |  |  |  |  | __  __  __ \n");
+    printf("\\     ||  |  ||  |  ||  .  \\|     ||     ||   |   ||     ||  |  |  |  ||  ||  ||  |\n");
+    printf(" \\____||__|__||__|__||__|\\_||___,_||_____||___|___||_____||__|__|  |__||__||__||__|\n");
+    Sleep(1500);
+    printf(" ____    ____  _        ___  _____     ___    __ __       ____    ___  __ __\n");
+    printf("|    \\  /    || |      /  _]/ ___/    |   \\  |  |  |     |    |  /  _]|  |  |\n");
+    printf("|  D  )|   __|| |     /  [_(   \\_     |    \\ |  |  |     |__  | /  [_ |  |  |\n");
+    printf("|    / |  |  || |___ |    _]\\__  |    |  D  ||  |  |     __|  ||    _]|  |  |\n");
+    printf("|    \\ |  |_ ||     ||   [_ /  \\ |    |     ||  :  |    /  |  ||   [_ |  :  |\n");
+    printf("|  .  \\|     ||     ||     |\\    |    |     ||     |    \\  `  ||     ||     |\n");
+    printf("|__|\\_||___,_||_____||_____| \\___|    |_____| \\__,_|     \\____||_____| \\__,_|\n");
+    printf(
            "Le but de Snoopy est de recuperer 4 oiseaux aux 4 coins du niveau en un temps imparti.\n"
            "Le probleme est que ces 4 oiseaux ne sont pas si faciles a recuperer.\n"
            "Une balle rebondit constamment dans le niveau afin de freiner Snoopy dans sa quete.\n"
            "Mais ce n'est pas tout, d'autres pieges sont presents comme des teleporteurs que la balle peut emprunter\n"
-           "ou des cases piegees, voir meme des blocs a pousser ou a casser.\n"                                                                                                                                                                                                                                                                       
+           "ou des cases piegees, voir meme des blocs a pousser ou a casser.\n"
            "Vous recuperez les 4 oiseaux et vous avez gagne. Cependant, si le temps est ecoule ou que la balle vous\n"
            "touche, le niveau est perdu.\n\nAppuyez sur 'm' pour retourner au menu.\n");
 
-    char choix;                                                                                                    
+    char choix;
     scanf(" %c", &choix);
 
-    // On peut ajouter une boucle ici pour attendre la pression de 'm'                                                                  
+    // On peut ajouter une boucle ici pour attendre la pression de 'm'
     while (choix != 'm' && choix != 'M') {
         printf("Appuyez sur 'm' pour retourner au menu.\n");
         scanf(" %c", &choix);
-    }                                                  
-}                                           
+    }
+}
 
-void motdepasse(){                                                                                                                       
+void motdepasse(){
     p_passe p;
-    printf("saisir le mot de passe");                                                                                                              
+    printf("saisir le mot de passe");
     char mot[4];
-    gets(mot);                                                                                                                 
+    gets(mot);
     if(mot=='niv1'){
         niv1();
     }
 }
 void scores(){
-                                                                                                                                                                                                                                                                                                                        
+
 }
 void affmur(int a,int b){
     char mur='=';
