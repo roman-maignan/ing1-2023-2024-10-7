@@ -1,27 +1,27 @@
 #include <stdio.h>
 
 
-#ifndef PROJET_HEADER_H
-#define PROJET_HEADER_H
+#ifndef PROJET_HEADER_H                                                                                                                                       
+#define PROJET_HEADER_H                                                                                                                                                  
+                                                                                                                                        
 
 
-
-#endif
-#include <stdlib.h>
-#include <windows.h>
-#include <string.h>
+#endif                                                                                                                                                     
+#include <stdlib.h>                                                                                                                                                                                                                        
+#include <windows.h>                                                                                                                                                         
+#include <string.h>                                                                                                                                                                                                                                                                                       
 #include <conio.h>
-#include <time.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <windows.h>
-
-void gotoligcol( int lig, int col );
-void Color(int couleurDuTexte,int couleurDeFond);
-void affm();
-void affs();
-void affo();
-void affb();
+#include <time.h>                                                                                                                                        
+#include <unistd.h>                                                                                              
+#include <stdbool.h>                                                                                                                         
+#include <windows.h>                                                                                                                                        
+                                                                                                                                                           
+void gotoligcol( int lig, int col );                                                                                                                          
+void Color(int couleurDuTexte,int couleurDeFond);                                                                                                         
+void affm();                                                                                                                                        
+void affs();                                                                                                                                          
+void affo();                                                                                                                                                   
+void affb();                                                                                                                                            
 void affmur(int a,int b);
 void affblocs();
 void affpouss();
@@ -60,10 +60,10 @@ void afficherMenu();
 void jouerNiveau(Plateau *plateau);
 void affreglesdujeu();
 void motdepasse();
-void scores();
-typedef struct passe{
-    char m1[4];
-    char m2[4];
-    char m3[4];
-    char m4[4];
-}p_passe;
+void scores();                                                                                                                            
+typedef struct passe{                                                                                                                                        
+    char m1[4];                                                                                                                                                 
+    char m2[4];                                                                                                                                                     
+    char m3[4];                                                                                                                                                   
+    char m4[4];                                                                                                                                 
+}p_passe;                                                                                                                   
