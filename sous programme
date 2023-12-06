@@ -4,7 +4,8 @@
 
 #include "sous programme.h"
 
-char ter[10][20]={
+
+ char ter[10][20]={
         "--------------------",
         "|                  |",
         "|                  |",
@@ -60,8 +61,8 @@ void gotoligcol( int lig, int col ){
 
 void Color(int couleurDuTexte,int couleurDeFond)
 {
-    HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(H,couleurDeFond*16+couleurDuTexte);
+HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
+SetConsoleTextAttribute(H,couleurDeFond*16+couleurDuTexte);
 }
 
 void north(){
@@ -145,7 +146,7 @@ int findy(char ter[10][20]){
     return c.sy;
 }
 
-void recolte(){
+int recolte(int a){
     int i=findx(ter);
     int j=findy(ter);
     if (i==1){
@@ -153,11 +154,13 @@ void recolte(){
             ter[1][1]=' ';
             gotoligcol(1,1);
             printf ("%c",ter[1][1]);
+            a=a+1;
         }
         if (j==17){
             ter[1][18]=' ';
             gotoligcol(1,18);
             printf ("%c",ter[1][18]);
+            a=a+1;
         }
     }
     if (i==2){
@@ -165,11 +168,13 @@ void recolte(){
             ter[1][1]=' ';
             gotoligcol(1,1);
             printf ("%c",ter[1][1]);
+            a=a+1;
         }
         if (j==18){
             ter[1][18]=' ';
             gotoligcol(1,18);
             printf ("%c",ter[1][18]);
+            a=a+1;
         }
     }
     if (i==8){
@@ -177,11 +182,13 @@ void recolte(){
             ter[8][1]=' ';
             gotoligcol(8,1);
             printf ("%c",ter[8][1]);
+            a=a+1;
         }
         if (j==17){
             ter[8][18]=' ';
             gotoligcol(8,18);
             printf ("%c",ter[8][18]);
+            a=a+1;
         }
     }
     if (i==7){
@@ -189,16 +196,28 @@ void recolte(){
             ter[8][1]=' ';
             gotoligcol(8,1);
             printf ("%c",ter[8][1]);
+            a=a+1;
         }
         if (j==18){
             ter[8][18]=' ';
             gotoligcol(8,18);
             printf ("%c",ter[8][18]);
+            a=a+1;
         }
+    }
+    return a;
+}
+void casse(){
+    int i= findx(ter);
+    int j= findy(ter);
+    if (ter[i-1][j]=='c'){
+        gotoligcol(i-1,j);
+        ter[i-1][j]=' ';
+        printf("%c",ter[i-1][j]);
     }
 }
 
-void delay (int ms){
+int delay (int ms,int x){
     char touche;
     int i= findx(ter);
     int j= findy(ter);
@@ -260,10 +279,17 @@ void delay (int ms){
                 south();
             }
             if (touche == 'r') {
-                recolte();
+                recolte(x);
+            }
+            if (touche == 'c'){
+                casse();
+            }
+            if (touche == 'p'){
+                pause(900000000);
             }
         }
     }
+    return x;
 }
 
 char tps[3][21]={
@@ -352,17 +378,21 @@ void niv1 (){
     affo();
     afft();
     affb();
+    affbc(7,5);
     t.t1=60;
+    int a=0;
     while (t.t1>=0) {
         gotoligcol(12,9);
         printf("%d",t.t1);
         t.t1=t.t1-1;
-        delay(1000);
+        delay(1000,a);
+        if(a==4){
+            t.t1=1;
+        }
         if (t.t1<10){
             gotoligcol(12,10);
             printf (" ");
         }
-        // moveb ();
     }
 }
 void niv2(){
@@ -374,11 +404,12 @@ void niv2(){
     affb();
     affblocs();
     t.t2=60;
+    int b=0;
     while (t.t2>=0) {
         gotoligcol(12,9);
         printf("%d",t.t2);
         t.t2=t.t2-1;
-        delay(1000);
+        delay(1000,b);
         if (t.t2<10){
             gotoligcol(12,10);
             printf (" ");
@@ -396,11 +427,12 @@ void niv3(){
     affblocs();
     affpouss();
     t.t3=60;
+    int c=0;
     while (t.t3>=0) {
         gotoligcol(12,9);
         printf("%d",t.t3);
         t.t3=t.t3-1;
-        delay(1000);
+        delay(1000,c);
         if (t.t3<10){
             gotoligcol(12,10);
             printf (" ");
@@ -415,12 +447,15 @@ void niv4(){
     affo();
     afft();
     affb();
+    affblocs();
+    affpouss();
     t.t4=60;
+    int d=0;
     while (t.t4>=0) {
         gotoligcol(12,9);
         printf("%d",t.t4);
         t.t4=t.t4-1;
-        delay(1000);
+        delay(1000,d);
         if (t.t4<10){
             gotoligcol(12,10);
             printf (" ");
@@ -438,49 +473,15 @@ void affbp(int a,int b){
 
 void afficherMenu() {
     // Implémentez la logique pour afficher le menu du jeu
-    printf(" ____     ___  __ __   ____  ____      __  __ __    ___      ___      ___       _____ ____    ___    ___   ____   __ __\n");
-    printf("|    \\   /  _]|  |  | /    ||    \\    /  ]|  |  |  /  _]    |   \\    /  _]     / ___/|    \\  /   \\  /   \\ |    \\ |  |  |\n");
-    printf("|  D  ) /  [_ |  |  ||  o  ||  _  |  /  / |  |  | /  [_     |    \\  /  [_     (   \\_ |  _  ||     ||     ||  o  )|  |  |\n");
-    printf("|    / |    _]|  |  ||     ||  |  | /  /  |  _  ||    _]    |  D  ||    _]     \\__  ||  |  ||  O  ||  O  ||   _/ |  ~  |\n");
-    printf("|    \\ |   [_ |  :  ||  _  ||  |  |/   \\_ |  |  ||   [_     |     ||   [_      /  \\ ||  |  ||     ||     ||  |   |___, |\n");
-    printf("|  .  \\|     | \\   / |  |  ||  |  |\\     ||  |  ||     |    |     ||     |     \\    ||  |  ||     ||     ||  |   |     |\n");
-    printf("|__|\\_||_____|  \\_/  |__|__||__|__| \\____||__|__||_____|    |_____||_____|      \\___||__|__| \\___/  \\___/ |__|   |____/\n");
     printf("0. regles du jeu\n");
     printf("1. Jouer un nouveau niveau\n");
-    printf("2. Charger une partie\n");
-    printf("3. Sauvegarder la partie en cours\n");
-    printf("4. Mot de passe des differents niveaux\n");
-    printf("5. Scores\n");
-    printf("Q. Quitter le jeu\n");
-    printf("                   %%%#+===+*        \n");
-    printf("                  #*-.     :=*%      \n");
-    printf("         %%#*++++=:.         .=#     \n");
-    printf("       %#=.      ..         ...+#    \n");
-    printf("      %*..       -=.     ..-*#*-#%% \n");
-    printf("     %#.         :-:    .-+#%%%-*# \n");
-    printf("   #+*+    ..  ..   ..  =+##%%%+*# \n");
-    printf("  *=-**.            --..-*%%%%%:#@ \n");
-    printf("   %#%%+...       ..-: .=+#%%#:#%  \n");
-    printf("        %%#=:....--. ..=#=++:+%%   \n");
-    printf("                %%+. =*              \n");
-    printf("                  %##%%              \n");
-    printf("                  +-:=%              \n");
-    printf("                %=...-*%             \n");
-    printf("               %=.  ..=*             \n");
-    printf("               +-  .-:.*%            \n");
-    printf("               +-  :-..*%%           \n");
-    printf("               %+: :=-:+#%%%         \n");
-    printf("                %#*===+#%*+=+#%      \n");
-    printf("           #*==***+==:-*%%%%         \n");
-    printf("         %*====-... .. ..:+#         \n");
 
+    printf("2. Sauvegarder la partie en cours\n");
+    printf("3. Mot de passe des differents niveaux\n");
+
+    printf("Q. Quitter le jeu\n");
 }
-void chargerPartie(Plateau *plateau) {
-    FILE *fichier = fopen("sauvegarde.txt", "r");
-    if (fichier == NULL) {
-        fprintf(stderr, "Erreur lors de l'ouverture du fichier de sauvegarde.\n");
-    }
-}
+
 
 void jouerNiveau(Plateau *plateau) {
     // Réinitialiser le chronomètre
@@ -488,38 +489,6 @@ void jouerNiveau(Plateau *plateau) {
 }
 
 void sauvegarderPartie(Plateau plateau) {
-    printf("    __  __ __   ____  ____    ____    ___  ___ ___    ___  ____   ______           \n");
-    printf("   /  ]|  |  | /    ||    \\  /    |  /  _]|   |   |  /  _]|    \\ |      |          \n");
-    printf("  /  / |  |  ||  o  ||  D  )|   __| /  [_ | _   _ | /  [_ |  _  ||      |          \n");
-    printf(" /  /  |  _  ||     ||    / |  |  ||    _]|  \\_/  ||    _]|  |  ||_|  |_|          \n");
-    printf("/   \\_ |  |  ||  _  ||    \\ |  |_ ||   [_ |   |   ||   [_ |  |  |  |  | __  __  __ \n");
-    printf("\\     ||  |  ||  |  ||  .  \\|     ||     ||   |   ||     ||  |  |  |  ||  ||  ||  |\n");
-    printf(" \\____||__|__||__|__||__|\\_||___,_||_____||___|___||_____||__|__|  |__||__||__||__|\n");
-    Sleep(3000);
-    printf("   ___  ____   ____     ___  __ __  ____       __  __  __                                            \n");
-    printf("  /  _]|    \\ |    \\   /  _]|  |  ||    \\     |  ||  ||  |                                           \n");
-    printf(" /  [_ |  D  )|  D  ) /  [_ |  |  ||  D  )    |  ||  ||  |                                           \n");
-    printf("|    _]|    / |    / |    _]|  |  ||    /     |__||__||__|                                           \n");
-    printf("|   [_ |    \\ |    \\ |   [_ |  :  ||    \\      __  __  __                                            \n");
-    printf("|     ||  .  \\|  .  \\|     ||     ||  .  \\    |  ||  ||  |                                           \n");
-    printf("|_____||__|\\_||__|\\_||_____| \\__,_||__|\\_|    |__||__||__|                                           \n");
-    printf("                                                                                                    \n");
-    printf(" ____     ___    ___  _____ _____  ____  __ __    ___  ____                                          \n");
-    printf("|    \\   /  _]  /  _]/ ___// ___/ /    ||  |  |  /  _]|    \\                                         \n");
-    printf("|  D  ) /  [_  /  [_(   \\_(   \\_ |  o  ||  |  | /  [_ |  D  )                                        \n");
-    printf("|    / |    _]|    _]\\__  |\\__  ||     ||  ~  ||    _]|    /                                         \n");
-    printf("|    \\ |   [_ |   [_ /  \\ |/  \\ ||  _  ||___, ||   [_ |    \\                                         \n");
-    printf("|  .  \\|     ||     |\\    |\\    ||  |  ||     ||     ||  .  \\                                        \n");
-    printf("|__|\\_||_____||_____| \\___| \\___||__|__||____/ |_____||__|\\_|                                        \n");
-    printf("                                                                                                    \n");
-    printf(" __ __  _     ______    ___  ____   ____    ___  __ __  ____     ___  ___ ___    ___  ____   ______ \n");
-    printf("|  |  || |   |      |  /  _]|    \\ |    |  /  _]|  |  ||    \\   /  _]|   |   |  /  _]|    \\ |      |\n");
-    printf("|  |  || |   |      | /  [_ |  D  ) |  | /  [_ |  |  ||  D  ) /  [_ | _   _ | /  [_ |  _  ||      |\n");
-    printf("|  |  || |___|_|  |_||    _]|    /  |  | |    _]|  |  ||    / |    _]|  \\_/  ||    _]|  |  ||_|  |_|\n");
-    printf("|  :  ||     | |  |  |   [_ |    \\  |  | |   [_ |  :  ||    \\ |   [_ |   |   ||   [_ |  |  |  |  |  \n");
-    printf("|     ||     | |  |  |     ||  .  \\ |  | |     ||     ||  .  \\|     ||   |   ||     ||  |  |  |  |  \n");
-    printf(" \\__,_||_____| |__|  |_____||__|\\_||____||_____| \\__,_||__|\\_||_____||___|___||_____||__|__|  |__|  \n");
-    Sleep(5000);
     FILE *fichier = fopen("sauvegarde.txt", "w");
     if (fichier == NULL) {
         fprintf(stderr, "Erreur lors de l'ouverture du fichier de sauvegarde.\n");
@@ -527,22 +496,7 @@ void sauvegarderPartie(Plateau plateau) {
     }
 }
 void affreglesdujeu(){
-    printf("    __  __ __   ____  ____    ____    ___  ___ ___    ___  ____   ______           \n");
-    printf("   /  ]|  |  | /    ||    \\  /    |  /  _]|   |   |  /  _]|    \\ |      |          \n");
-    printf("  /  / |  |  ||  o  ||  D  )|   __| /  [_ | _   _ | /  [_ |  _  ||      |          \n");
-    printf(" /  /  |  _  ||     ||    / |  |  ||    _]|  \\_/  ||    _]|  |  ||_|  |_|          \n");
-    printf("/   \\_ |  |  ||  _  ||    \\ |  |_ ||   [_ |   |   ||   [_ |  |  |  |  | __  __  __ \n");
-    printf("\\     ||  |  ||  |  ||  .  \\|     ||     ||   |   ||     ||  |  |  |  ||  ||  ||  |\n");
-    printf(" \\____||__|__||__|__||__|\\_||___,_||_____||___|___||_____||__|__|  |__||__||__||__|\n");
-    Sleep(1500);
-    printf(" ____    ____  _        ___  _____     ___    __ __       ____    ___  __ __\n");
-    printf("|    \\  /    || |      /  _]/ ___/    |   \\  |  |  |     |    |  /  _]|  |  |\n");
-    printf("|  D  )|   __|| |     /  [_(   \\_     |    \\ |  |  |     |__  | /  [_ |  |  |\n");
-    printf("|    / |  |  || |___ |    _]\\__  |    |  D  ||  |  |     __|  ||    _]|  |  |\n");
-    printf("|    \\ |  |_ ||     ||   [_ /  \\ |    |     ||  :  |    /  |  ||   [_ |  :  |\n");
-    printf("|  .  \\|     ||     ||     |\\    |    |     ||     |    \\  `  ||     ||     |\n");
-    printf("|__|\\_||___,_||_____||_____| \\___|    |_____| \\__,_|     \\____||_____| \\__,_|\n");
-    printf(
+    printf("Les regles du jeu sont les suivantes:\n"
            "Le but de Snoopy est de recuperer 4 oiseaux aux 4 coins du niveau en un temps imparti.\n"
            "Le probleme est que ces 4 oiseaux ne sont pas si faciles a recuperer.\n"
            "Une balle rebondit constamment dans le niveau afin de freiner Snoopy dans sa quete.\n"
@@ -562,11 +516,11 @@ void affreglesdujeu(){
 }
 
 void motdepasse(){
-    p_passe p;
-    printf("saisir le mot de passe");
-    char mot[4];
-    gets(mot);
-    if(mot=='niv1'){
+    printf("saisir mot de passe");
+    char mot[10];
+    scanf("%c",&mot);
+    if (strcmp(mot,"niv1")==0){
+        system("cls");
         niv1();
     }
 }
@@ -611,3 +565,24 @@ void affpouss(){
     affbp(1,3);
     affbp(1,17);
 }
+
+void affbc(int a,int b){
+    char casse='c';
+    ter[a][b]=casse;
+    gotoligcol(a,b);
+    printf("%c",ter[a][b]);
+}
+
+void pause (int ms){
+    clock_t timeDelay = ms + clock();
+    char touche;
+    while (timeDelay>clock()){
+        if (kbhit()) {
+            touche = getch();
+            if (touche == 'p'){
+            break;
+            }
+        }
+    }
+}
+
