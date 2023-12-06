@@ -26,18 +26,19 @@ int main() {
                 niv4();
                 break;
             case '2':
-                chargerPartie(&plateau);
-                jouerNiveau(&plateau);
-                break;
-            case '3':
                 sauvegarderPartie(plateau);
                 break;
-            case '4':
+            case '3':
+                motdepasse();
                 //motdepasse();
                 //break;
-                printf("saisir mot de passe");
-                char mot[4];
+                /*printf("saisir mot de passe");
+                char mot[10];
                 scanf("%c",&mot);
+                if (strcmp(mot,"niv1")==0){
+                    system("cls");
+                    niv1();
+                }
                 if(mot[0]=='n'){
                     if(mot[1]=='i'){
                         if(mot[2]=='v'){
@@ -55,11 +56,9 @@ int main() {
                             }
                         }
                     }
-                }
+                }*/
                 break;
-            case '5':
-                scores();
-                break;
+
             case 'Q':
             case 'q':
                 printf("Au revoir\n");
@@ -67,10 +66,10 @@ int main() {
             default:
                 printf("Choix invalide, veuillez réessayer.\n");
         }
-        if (choix != '0') {
+        /*if (choix != '0') {
             printf("\nAppuyez sur Enter pour continuer...");
             getchar();
-        }
+        }*/
 
     } while (choix != 'Q' && choix != 'q');
 
