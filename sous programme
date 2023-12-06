@@ -69,28 +69,28 @@ void north(){
         ter[i][j]=vide;
         ter[i-1][j]=snoopy;
         gotoligcol(i,j);
-        printf("%c",ter[i][j]);
-        gotoligcol(i-1,j);
+        printf("%c",ter[i][j]);                   
+        gotoligcol(i-1,j);                    
         printf ("%c",ter[i-1][j]);
     }
 }
-void south(){
+void south(){                   
     char snoopy='S';
     char vide=' ';
     int i=findx(ter);
     int j=findy(ter);
     if (ter[i+1][j]==' '){
-        ter[i][j]=vide;
+        ter[i][j]=vide;               
         ter[i+1][j]=snoopy;
-        gotoligcol(i,j);
+        gotoligcol(i,j);              
         printf("%c",ter[i][j]);
-        gotoligcol(i+1,j);
+        gotoligcol(i+1,j);               
         printf ("%c",ter[i+1][j]);
     }
 }
-void west(){
+void west(){                              
     char snoopy='S';
-    char vide=' ';
+    char vide=' ';                                 
     int i=findx(ter);
     int j=findy(ter);
     if (ter[i][j-1]==' '){
