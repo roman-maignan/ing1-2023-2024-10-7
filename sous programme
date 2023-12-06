@@ -1,10 +1,10 @@
 #include "header.h"
-
+                                                                                                                                        
  char ter[10][20]={
         "--------------------",
         "|                  |",
         "|                  |",
-        "|                  |",
+        "|                  |",                                                                                                         
         "|                  |",
         "|                  |",
         "|                  |",
@@ -467,31 +467,31 @@ void affreglesdujeu(){
            "Le probleme est que ces 4 oiseaux ne sont pas si faciles a recuperer.\n"
            "Une balle rebondit constamment dans le niveau afin de freiner Snoopy dans sa quete.\n"
            "Mais ce n'est pas tout, d'autres pieges sont presents comme des teleporteurs que la balle peut emprunter\n"
-           "ou des cases piegees, voir meme des blocs a pousser ou a casser.\n"
+           "ou des cases piegees, voir meme des blocs a pousser ou a casser.\n"                                                                                                                                                                                                                                                                       
            "Vous recuperez les 4 oiseaux et vous avez gagne. Cependant, si le temps est ecoule ou que la balle vous\n"
            "touche, le niveau est perdu.\n\nAppuyez sur 'm' pour retourner au menu.\n");
 
-    char choix;
+    char choix;                                                                                                    
     scanf(" %c", &choix);
 
-    // On peut ajouter une boucle ici pour attendre la pression de 'm'
+    // On peut ajouter une boucle ici pour attendre la pression de 'm'                                                                  
     while (choix != 'm' && choix != 'M') {
         printf("Appuyez sur 'm' pour retourner au menu.\n");
         scanf(" %c", &choix);
-    }
-}
+    }                                                  
+}                                           
 
-void motdepasse(){
+void motdepasse(){                                                                                                                       
     p_passe p;
-    printf("saisir le mot de passe");
+    printf("saisir le mot de passe");                                                                                                              
     char mot[4];
-    gets(mot);
+    gets(mot);                                                                                                                 
     if(mot=='niv1'){
         niv1();
     }
 }
 void scores(){
-
+                                                                                                                                                                                                                                                                                                                        
 }
 void affmur(int a,int b){
     char mur='=';
