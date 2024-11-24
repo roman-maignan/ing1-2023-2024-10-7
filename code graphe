@@ -1,0 +1,115 @@
+#include "header.h"
+
+int main() {
+    Graph *graph = createGraph(0, 0);
+    readGraphFromFile(graph, "graphe.txt");
+    int start, end;
+    printf("Entrez le sommet de depart: ");
+    scanf("%d", &start);
+    printf("Entrez le sommet d'arrivee: ");
+    scanf("%d", &end);
+    if (start < 0 || start >= graph->vertex_count || end < 0 || end >= graph->vertex_count) {
+        fprintf(stderr, "Sommets invalides. Assurez-vous que les sommets sont compris entre 0 et %d.\n", graph->vertex_count - 1);
+        freeGraph(graph);
+        return EXIT_FAILURE;
+    }
+    int cost = aStar(graph, start, end);
+    if (cost != -1) {
+        printf("Le plus court chemin de %d a %d a un cout de %d\n", start, end, cost);
+    } else {
+        printf("Aucun chemin trouve de %d à %d\n", start, end);
+    }
+    freeGraph(graph);
+    return 0;
+}
+#include "header.h"
+
+Graph *createGraph(int vertex_count, int edge_count) {
+    Graph *graph = (Graph *)malloc(sizeof(Graph));
+    graph->vertex_count = vertex_count;
+    graph->edge_count = edge_count;
+    graph->edges = (Edge *)malloc(edge_count * sizeof(Edge));
+    return graph;
+}
+void freeGraph(Graph *graph) {
+    free(graph->edges);
+    free(graph);
+}
+void readGraphFromFile(Graph *graph, const char *filename) {
+    FILE *file = fopen(filename, "r");
+    if (!file) {
+        fprintf(stderr, "Erreur lors de l'ouverture du fichier.\n");
+        exit(EXIT_FAILURE);
+    }
+    fscanf(file, "%d", &graph->vertex_count);
+    fscanf(file, "%d", &graph->edge_count);
+    graph->edges = (Edge *)malloc(graph->edge_count * sizeof(Edge));
+    for (int i = 0; i < graph->edge_count; i++) {
+        fscanf(file, "%d %d %d", &graph->edges[i].start, &graph->edges[i].end, &graph->edges[i].weight);
+    }
+    fclose(file);
+}
+typedef struct {
+    int vertex;
+    int cost;
+} Node;
+int aStar(Graph *graph, int start, int end) {
+    int *g_score = (int *)malloc(graph->vertex_count * sizeof(int));
+    int *f_score = (int *)malloc(graph->vertex_count * sizeof(int));
+    bool *closed_set = (bool *)malloc(graph->vertex_count * sizeof(bool));
+    Node *open_set = (Node *)malloc(graph->vertex_count * sizeof(Node));
+    for (int i = 0; i < graph->vertex_count; i++) {
+        g_score[i] = INT_MAX;
+        f_score[i] = INT_MAX;
+        closed_set[i] = false;
+    }
+    g_score[start] = 0;
+    f_score[start] = 0;
+    int open_set_count = 0;
+    open_set[open_set_count++] = (Node){start, f_score[start]};
+    while (open_set_count > 0) {
+        int current_index = 0;
+        for (int i = 1; i < open_set_count; i++) {
+            if (open_set[i].cost < open_set[current_index].cost) {
+                current_index = i;
+            }
+        }
+        int current = open_set[current_index].vertex;
+        if (current == end) {
+            int cost = g_score[current];
+            free(g_score);
+            free(f_score);
+            free(closed_set);
+            free(open_set);
+            return cost;
+        }
+        open_set[current_index] = open_set[--open_set_count];
+        closed_set[current] = true;
+        for (int i = 0; i < graph->edge_count; i++) {
+            if (graph->edges[i].start == current) {
+                int neighbor = graph->edges[i].end;
+                if (closed_set[neighbor]) continue;
+                int tentative_g_score = g_score[current] + graph->edges[i].weight;
+                if (tentative_g_score < g_score[neighbor]) {
+                    g_score[neighbor] = tentative_g_score;
+                    f_score[neighbor] = tentative_g_score;
+                    bool in_open_set = false;
+                    for (int j = 0; j < open_set_count; j++) {
+                        if (open_set[j].vertex == neighbor) {
+                            in_open_set = true;
+                            break;
+                        }
+                    }
+                    if (!in_open_set) {
+                        open_set[open_set_count++] = (Node){neighbor, f_score[neighbor]};
+                    }
+                }
+            }
+        }
+    }
+    free(g_score);
+    free(f_score);
+    free(closed_set);
+    free(open_set);
+    return -1;
+}
